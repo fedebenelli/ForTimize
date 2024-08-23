@@ -40,6 +40,7 @@ end module
 program grad_descent
     use my_foos, only: f, df
     use ForTimize, only: GradientDescent, minimize
+
     type(GradientDescent) :: optimizer
     real(8) :: y, x(3), x0(3)
 

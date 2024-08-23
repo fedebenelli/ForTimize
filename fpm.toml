@@ -16,3 +16,6 @@ implicit-typing = false
 implicit-external = false
 source-form = "free"
 
+[dependencies]
+NumDiff = { git="https://github.com/jacobwilliams/NumDiff.git" }
+

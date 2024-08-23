@@ -36,5 +36,27 @@ contains
       x = x - self%step * self%df(x)
     end do
     y = f(x)
+
+  contains
+    function numdiff(xx)
+      real(real64), intent(in) :: xx(:)
+      real(real64) :: numdiff(size(xx))
+      numdiff = df(f, xx)
+    end function
   end subroutine
+
+  function df(f, x)
+    procedure(objective) :: f
+    real(real64), intent(in) :: x(:)
+    real(real64) :: df(size(x))
+
+    integer :: i
+    real(real64) :: dx=1e-5, xdx(size(x))
+
+    do i=1, size(x)
+      xdx = x
+      xdx(i) = xdx(i) + dx
+      df(i) = (f(xdx) - f(x))/dx
+    end do
+  end function
 end module
