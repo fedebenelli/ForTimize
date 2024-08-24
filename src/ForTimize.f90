@@ -1,5 +1,8 @@
 module ForTimize
-  use ForTimize_base
-  use ForTimize_gradient_descent, only: GradientDescent
+  use ForTimize__constants, only: pr
+  use ForTimize__base
+  use ForTimize__minimize, only: minimize
+  use ForTimize__with_derivatives
+  use ForTimize__gradient_free
   implicit none
 end module
