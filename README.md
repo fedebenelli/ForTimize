@@ -61,13 +61,35 @@ end program
 ```
 
 ## How to include new algorithms
-All the optimization algorithms should `extend` the Abstract type `Optimizer`
+All the optimization algorithms should `extend` the Abstract type `Optimizer`, 
+which ensures that the `optimize` method is respected.
 
 ```fortran
-type, extends(Optimizer) :: MyNewAlgorithm
+module my_new_optimizer
+    use ForTimize__constants, only: pr
+    use ForTimize__core, only: Optimizer, objective_function
+
+    type, extends(Optimizer) :: MyNewAlgorithm
+    contains
+        procedure :: optimize => optimizer_implementation
+    end type
+
 contains
-    procedure :: optimize => optimizer_implementation
-end type
+
+    subroutine optimizer_implementation(self, foo, X, F, data)
+        class(Optimizer), intent(in out) :: self 
+            !! Optimizer object
+        procedure(objective_function) :: foo 
+            !! Objective function to minimize
+        real(pr), intent(in out) :: X(:) 
+            !! Vector of parameters
+        real(pr), intent(out) :: F 
+            !! Function value after optimization
+        class(*), optional, target, intent(in out) :: data 
+            !! Optional data that could be useful for the function
+
+        ! Optimizer procedures here.
+    end subroutine
 ```
 
 
