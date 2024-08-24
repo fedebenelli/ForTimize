@@ -61,7 +61,7 @@ jobs:
         fpm test --profile release --flag "-g -coverage" --compiler ${{ env.FC }} --c-compiler gcc
 
     - name: Coverage
-      run: bash ci/ci.sh coverage
+      run: gcovr --exclude "build" --jacoco coverage.xml
       if: ${{ env.FC == 'gfortran' }}
 
     - name: Upload coverage reports to Codecov
