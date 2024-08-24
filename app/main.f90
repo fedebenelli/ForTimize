@@ -1,5 +1,4 @@
 program main
-  use ForTimize_base
-  use ForTimize_gradient_descent
+  use ForTimize
   implicit none
 end program main
