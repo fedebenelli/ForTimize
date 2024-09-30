@@ -42,7 +42,7 @@ contains
    end subroutine foo
 end module fixture_problem
 
-program grad_descent
+program test
    use ForTimize, only: GradientDescent, minimize, NelderMead
    use fixture_problem, only: foo
 
@@ -50,7 +50,7 @@ program grad_descent
    type(NelderMead) :: nmopt
    real(8) :: yold, y, x(3), x0(3)
 
-   x0 = [ 1.3, -2.5,  1.]
+   x0 = [1.3, -2.5,  1.]
    optimizer%step = 0.001
    optimizer%max_iters = 1000
 
@@ -61,4 +61,4 @@ program grad_descent
 
    call minimize(foo, x0, y, nmopt)
    if (yold < y) error stop 1
-end program grad_descent
+end program test
